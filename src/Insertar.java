@@ -108,6 +108,11 @@ public class Insertar extends javax.swing.JFrame {
         jLabel9.setText("Ingrese el ID del alumno:");
 
         jButton5.setText("Buscar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -350,6 +355,37 @@ public class Insertar extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        String jdbcUrl = "jdbc:mariadb://localhost:3306/examen";
+        String username = "root";
+        String password = "";
+        
+        Connection conn = null;
+
+        try{
+            conn = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM `datos_alumnos` WHERE ID = ?");
+            ps.setString(1, jTextField1.getText());
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                Nomb.setText(rs.getString("Nombre"));
+                Ed.setText(rs.getString("Edad"));
+                Primp.setText(rs.getString("Primer Parcial"));
+                Segp.setText(rs.getString("Segundo Parcial"));
+                Terp.setText(rs.getString("Tercer Parcial"));
+                Med.setText(rs.getString("Promedio"));
+            } else {
+                JOptionPane.showMessageDialog(null,"No se encontraron datos");
+            }
+
+
+        } catch (Exception e){
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
