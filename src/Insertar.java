@@ -341,7 +341,8 @@ public class Insertar extends javax.swing.JFrame {
         try{
             String id = jTextField1.getText();
             conn = DriverManager.getConnection(jdbcUrl,username,password);
-            PreparedStatement ps = conn.prepareStatement("UPDATE `datos_alumnos` SET `Nombre`='?',`Edad`='?',`Primer Parcial`='?',`Segundo Parcial`='?',`Tercer Parcial`='?',`Promedio`='?' WHERE ID = " + id);
+            PreparedStatement ps = conn.prepareStatement("UPDATE `datos_alumnos` SET `Nombre`='" + Nomb.getText() + "',`Edad`='" + Ed.getText() +"',`Primer Parcial`=' " + Primp.getText() + 
+                    "',`Segundo Parcial`='"+Segp.getText() + "',`Tercer Parcial`='" + Terp.getText() + "',`Promedio`='" + Med.getText() + "' WHERE ID = " + id);
             ps.setString(1, Nomb.getText());
             ps.setString(2, Ed.getText());
             ps.setString(3, Primp.getText());
@@ -369,7 +370,7 @@ public class Insertar extends javax.swing.JFrame {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM `datos_alumnos` WHERE ID = ?");
             ps.setString(1, jTextField1.getText());
 
-            ResultSet rs = ps.executeQuery();
+            var rs = ps.executeQuery();
 
             if(rs.next()){
                 Nomb.setText(rs.getString("Nombre"));
