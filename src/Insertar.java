@@ -9,6 +9,7 @@
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.lang.reflect.Array;
@@ -326,6 +327,28 @@ public class Insertar extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        String jdbcUrl = "jdbc:mariadb://localhost:3306/examen";
+        String username = "root";
+        String password = "";
+        
+        Connection conn = null;
+        
+        try{
+            String id = jTextField1.getText();
+            conn = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement ps = conn.prepareStatement("UPDATE `datos_alumnos` SET `Nombre`='?',`Edad`='?',`Primer Parcial`='?',`Segundo Parcial`='?',`Tercer Parcial`='?',`Promedio`='?' WHERE ID = " + id);
+            ps.setString(1, Nomb.getText());
+            ps.setString(2, Ed.getText());
+            ps.setString(3, Primp.getText());
+            ps.setString(4, Segp.getText());
+            ps.setString(5, Terp.getText());
+            ps.setString(6, Med.getText());
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Datos actualizados " + IDent.getText() + "/" + Nomb.getText() + "/" + Ed.getText() + "/" + Primp.getText() + "/" + Segp.getText() + "/" + Terp.getText() + "/" + Med.getText());
+        } catch(Exception e){
+
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
